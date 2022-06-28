@@ -9,6 +9,7 @@ use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Support\Facades\Crypt;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 use Sopamo\LaravelFilepond\Filepond;
 
@@ -22,6 +23,16 @@ class FilepondController extends BaseController
     public function __construct(Filepond $filepond)
     {
         $this->filepond = $filepond;
+    }
+
+    public function show(Request $request){
+        $validated = $request->validate([
+            'source' => 'required'
+        ]);
+
+        $filePath = $this->filepond->getPathFromServerId($validated['source']);
+        // $folderPath = dirname($filePath);
+        return Image::make($filePath)->response();
     }
 
     /**
