@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Route;
 use Sopamo\LaravelFilepond\Http\Controllers\FilepondController;
 
 Route::prefix('api')->group(function () {
-    Route::get('/', [FilepondController::class, 'chunk'])->name('filepond.get');
+    Route::get('/', [FilepondController::class, 'show'])->name('filepond.get');
     Route::patch('/', [FilepondController::class, 'chunk'])->name('filepond.chunk');
     Route::post('/process', [FilepondController::class, 'upload'])->name('filepond.upload');
     Route::delete('/process', [FilepondController::class, 'delete'])->name('filepond.delete');

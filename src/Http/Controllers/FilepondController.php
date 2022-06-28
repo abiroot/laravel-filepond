@@ -27,10 +27,10 @@ class FilepondController extends BaseController
 
     public function show(Request $request){
         $validated = $request->validate([
-            'source' => 'required'
+            'load' => 'required'
         ]);
 
-        $filePath = $this->filepond->getPathFromServerId($validated['source']);
+        $filePath = $this->filepond->getPathFromServerId($validated['load']);
         // $folderPath = dirname($filePath);
         return Image::make($filePath)->response();
     }
