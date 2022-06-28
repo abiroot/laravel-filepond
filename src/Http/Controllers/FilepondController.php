@@ -44,7 +44,7 @@ class FilepondController extends BaseController
         $path = config('filepond.temporary_files_path', 'filepond');
         $disk = config('filepond.temporary_files_disk', 'local');
 
-        if (!($newFile = $file->storeAs($path . DIRECTORY_SEPARATOR . Str::random(), $file->getClientOriginalName(), $disk))) {
+        if (!($newFile = $file->storeAs($path . DIRECTORY_SEPARATOR . Str::random(), $file->hashName(), $disk))) {
             return Response::make('Could not save file', 500, [
                 'Content-Type' => 'text/plain',
             ]);
