@@ -31,8 +31,8 @@ class FilepondController extends BaseController
         ]);
 
         $filePath = $this->filepond->getPathFromServerId($validated['load']);
-        // $folderPath = dirname($filePath);
-        return Image::make($filePath)->response();
+        $storagePath = storage_path('app/' . $filePath);
+        return response()->file($storagePath, ['Content-Disposition' => 'inline; filename="image"']);
     }
 
     /**
@@ -55,7 +55,7 @@ class FilepondController extends BaseController
         $path = config('filepond.temporary_files_path', 'filepond');
         $disk = config('filepond.temporary_files_disk', 'local');
 
-        if (!($newFile = $file->storeAs($path . DIRECTORY_SEPARATOR . Str::random(), $file->hashName(), $disk))) {
+        if (!($newFile = $file->storeAs($path . DIRECTORY_SEPARATOR . $request->user()->id, $file->hashName(), $disk))) {
             return Response::make('Could not save file', 500, [
                 'Content-Type' => 'text/plain',
             ]);
