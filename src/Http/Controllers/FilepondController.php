@@ -13,6 +13,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 use Sopamo\LaravelFilepond\Filepond;
 use Illuminate\Support\Facades\File;
+use Spatie\LaravelImageOptimizer\Facades\ImageOptimizer;
 
 class FilepondController extends BaseController
 {
@@ -66,8 +67,8 @@ class FilepondController extends BaseController
                 'Content-Type' => 'text/plain',
             ]);
         }
-
-        app(Spatie\ImageOptimizer\OptimizerChain::class)->optimize($newFile);
+        
+        ImageOptimizer::optimize($newFile);
 
         return Response::make($this->filepond->getServerIdFromPath($newFile), 200, [
             'Content-Type' => 'text/plain',
