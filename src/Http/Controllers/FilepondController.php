@@ -67,6 +67,8 @@ class FilepondController extends BaseController
             ]);
         }
 
+        app(Spatie\ImageOptimizer\OptimizerChain::class)->optimize($newFile);
+
         return Response::make($this->filepond->getServerIdFromPath($newFile), 200, [
             'Content-Type' => 'text/plain',
         ]);
