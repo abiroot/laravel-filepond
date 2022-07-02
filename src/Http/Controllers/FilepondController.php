@@ -32,6 +32,11 @@ class FilepondController extends BaseController
 
         $filePath = $this->filepond->getPathFromServerId($validated['load']);
         $storagePath = storage_path('app/' . $filePath);
+
+        if(!Storage::exists($storagePath)){
+            return response()->json([], 404);
+        }
+
         return response()->file($storagePath, ['Content-Disposition' => 'inline; filename="image"']);
     }
 
@@ -136,7 +141,7 @@ class FilepondController extends BaseController
             ->put($basePath . DIRECTORY_SEPARATOR . 'patch.' . $offset, $request->getContent(), ['mimetype' => 'application/octet-stream']);
 
         $this->persistFileIfDone($disk, $basePath, $length, $finalFilePath);
-        
+
         return Response::make('', 204);
     }
 
