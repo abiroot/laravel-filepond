@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Str;
 use Sopamo\LaravelFilepond\Filepond;
+use Illuminate\Support\Facades\File;
 
 class FilepondController extends BaseController
 {
@@ -33,8 +34,8 @@ class FilepondController extends BaseController
         $filePath = $this->filepond->getPathFromServerId($validated['load']);
         $storagePath = storage_path('app/' . $filePath);
 
-        if(!Storage::exists($storagePath)){
-            return response()->json([], 404);
+        if(!File::exists($storagePath)){
+            return response()->json($storagePath, 404);
         }
 
         return response()->file($storagePath, ['Content-Disposition' => 'inline; filename="image"']);
