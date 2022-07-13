@@ -47,7 +47,6 @@ class LaravelFilepondServiceProvider extends ServiceProvider
             $this->loadRoutesFrom(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'api-guest.php');
         });
     }
-    }
 
     /**
      * @return string
