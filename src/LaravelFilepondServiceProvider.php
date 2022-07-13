@@ -38,6 +38,7 @@ class LaravelFilepondServiceProvider extends ServiceProvider
             'middleware' => config('filepond.middleware', null),
         ], function () {
             $this->loadRoutesFrom(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'api.php');
+            $this->loadRoutesFrom(__DIR__ . DIRECTORY_SEPARATOR . '..' . DIRECTORY_SEPARATOR . 'routes' . DIRECTORY_SEPARATOR . 'api-guest.php');
         });
     }
 
