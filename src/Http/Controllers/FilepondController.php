@@ -68,7 +68,8 @@ class FilepondController extends BaseController
             ]);
         }
         
-        ImageOptimizer::optimize($newFile);
+        ImageOptimizer::optimize(storage_path('app/' . $newFile));
+        
 
         return Response::make($this->filepond->getServerIdFromPath($newFile), 200, [
             'Content-Type' => 'text/plain',
