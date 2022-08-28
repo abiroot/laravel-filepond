@@ -32,8 +32,13 @@ class FilepondController extends BaseController
             'load' => 'required'
         ]);
 
-        $filePath = $this->filepond->getPathFromServerId($validated['load']);
-        $storagePath = storage_path('app/' . $filePath);
+        if(Str::endsWith($validated['load'], '.png') && Str::contains($validated['load'], '/')){
+            $imageName = end(explode('/', $validated['load']));
+            $storagePath = storage_path('app/v1/mainImages/' . $imageName);
+        }else{
+            $filePath = $this->filepond->getPathFromServerId($validated['load']);
+            $storagePath = storage_path('app/' . $filePath);
+        }
 
         if(!File::exists($storagePath)){
             return response()->json($storagePath, 404);
