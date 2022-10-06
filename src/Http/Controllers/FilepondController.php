@@ -45,7 +45,13 @@ class FilepondController extends BaseController
             return response()->json($storagePath, 404);
         }
 
-        return response()->file($storagePath, ['Content-Disposition' => 'inline; filename="image"']);
+        $type = File::mimeType($storagePath);
+        $headers = array(
+            'Content-Type' => $type,
+            'Content-Disposition' => 'inline; filename="image"',
+        );
+
+        return response()->file($storagePath, $headers);
     }
 
     /**
